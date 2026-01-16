@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Pages.BooksPage"
+             Title="Ma bibliothèque numérique"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto" Padding="15">
+
+        <CollectionView x:Name="BooksCollection" Grid.Row="0">
+
+            <!-- Vue affichée lorsqu’il n’y a aucun livre -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="10">
+                    <Label Text="📖"
+                           FontSize="50"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="Aucun livre ajouté pour le moment"
+                           TextColor="Gray"
+                           FontSize="18"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="Assurez-vous que le serveur est en cours d’exécution et ajoutez un livre"
+                           TextColor="Silver"
+                           FontSize="14"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <!-- Modèle d’affichage d’un livre -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5"
+                           Padding="15"
+                           HasShadow="True"
+                           BorderColor="#2196F3"
+                           BackgroundColor="White">
+
+                        <!-- Clic sur un livre -->
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBookSelected"
+                                                   CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label Text="{Binding Title}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333" />
+
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="{Binding CategoryName}"
+                                       TextColor="#2196F3"
+                                       FontSize="14" />
+
+                                <Label Text="|"
+                                       TextColor="LightGray" />
+
+                                <Label Text="{Binding StatusName}"
+                                       TextColor="DarkGreen"
+                                       FontSize="14"
+                                       FontAttributes="Italic" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- Bouton Ajouter un livre -->
+        <Button Grid.Row="1"
+                Text="➕ Ajouter un nouveau livre"
+                Clicked="OnAddBookClicked"
+                Margin="10"
+                BackgroundColor="#2196F3"
+                TextColor="White"
+                HeightRequest="60"
+                FontSize="18"
+                CornerRadius="30" />
+
+    </Grid>
+</ContentPage>

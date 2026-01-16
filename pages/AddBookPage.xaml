@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Pages.AddBookPage"
+             Title="Ajouter un nouveau livre"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="25">
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Titre du livre :" 
+                       TextColor="Black" 
+                       FontAttributes="Bold" 
+                       FontSize="16" />
+
+                <Frame Padding="5,0" BorderColor="#2196F3" CornerRadius="5" HasShadow="False">
+                    <Entry x:Name="TitleEntry"
+                           Placeholder="Entrez le titre ici..."
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="50" />
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Catégorie du livre :" 
+                       TextColor="Black" 
+                       FontAttributes="Bold" 
+                       FontSize="16" />
+
+                <Frame Padding="5,0" BorderColor="#2196F3" CornerRadius="5" HasShadow="False">
+                    <Entry x:Name="CategoryEntry"
+                           Placeholder="Exemple : Programmation, Roman..."
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="50" />
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Statut de lecture actuel :" 
+                       TextColor="Black" 
+                       FontAttributes="Bold" 
+                       FontSize="16" />
+
+                <Frame Padding="5,0" BorderColor="#2196F3" CornerRadius="5" HasShadow="False">
+                    <Entry x:Name="StatusEntry"
+                           Text="En cours de lecture"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           HeightRequest="50" />
+                </Frame>
+            </VerticalStackLayout>
+
+            <Button Text="Enregistrer le livre"
+                    Clicked="OnSaveClicked"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    HeightRequest="60"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    CornerRadius="10" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
