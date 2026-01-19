@@ -12,4 +12,21 @@
         ContentTemplate="{DataTemplate pages:BooksPage}"
         Route="BooksPage" />
 
+    
+    
+    <TabBar>
+
+    <ShellContent
+        Title="Home"
+        Icon="home.png"
+        ContentTemplate="{DataTemplate pages:BooksPage}" />
+
+
+    <ShellContent
+        Title="Ajouter"
+        Icon="add.png"
+        ContentTemplate="{DataTemplate pages:AddBookPage}" />
+
+</TabBar>
+
 </Shell>

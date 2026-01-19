@@ -1,12 +1,16 @@
 ﻿using project.Models;
 using project.Services;
+using System.Collections.ObjectModel;
 
 namespace project.Pages;
 
 public partial class BooksPage : ContentPage
 {
-    // Service responsable de la communication avec l’API
+    // الخدمة المسؤولة عن الاتصال بـ Node.js
     private readonly ApiService _apiService;
+
+    // القائمة "الخزنة" التي تحفظ النسخة الأصلية للبحث فيها محلياً
+    private List<Book> _allBooks = new List<Book>();
 
     public BooksPage()
     {
@@ -14,24 +18,29 @@ public partial class BooksPage : ContentPage
         _apiService = new ApiService();
     }
 
-    // Cette méthode est appelée à chaque apparition de la page
-    // (permet de rafraîchir automatiquement les données)
+    // يتم استدعاء هذه الدالة عند ظهور الصفحة (لتحديث البيانات)
     protected override async void OnAppearing()
     {
         base.OnAppearing();
         await LoadBooks();
     }
 
-    // Charger la liste des livres depuis le serveur
+    // جلب قائمة الكتب من السيرفر
     private async Task LoadBooks()
     {
         try
         {
-            // Récupérer les livres depuis MongoDB via l’API Node.js
+            // جلب البيانات من MongoDB عبر API
             var books = await _apiService.GetBooksAsync();
 
-            // Lier les données à la CollectionView
-            BooksCollection.ItemsSource = books;
+            if (books != null)
+            {
+                // حفظ النسخة الأصلية للبحث
+                _allBooks = books.ToList();
+
+                // عرض البيانات في الواجهة
+                BooksCollection.ItemsSource = _allBooks;
+            }
         }
         catch (Exception ex)
         {
@@ -43,25 +52,48 @@ public partial class BooksPage : ContentPage
         }
     }
 
-    // Navigation vers la page d’ajout d’un nouveau livre
+    // ميزة البحث التلقائي: تعمل مع كل حرف يكتبه المستخدم
+    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        // تحويل النص المكتوب إلى حروف صغيرة لتسهيل البحث
+        string searchTerm = e.NewTextValue?.ToLower() ?? "";
+
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            // إذا كان البحث فارغاً، نعيد عرض كل الكتب
+            BooksCollection.ItemsSource = _allBooks;
+        }
+        else
+        {
+            // فلترة القائمة الأصلية وعرض النتائج التي تحتوي على نص البحث
+            var filtered = _allBooks.Where(b =>
+                (b.Title != null && b.Title.ToLower().Contains(searchTerm)) ||
+                (b.CategoryName != null && b.CategoryName.ToLower().Contains(searchTerm))
+            ).ToList();
+
+            BooksCollection.ItemsSource = filtered;
+        }
+    }
+
+    // الانتقال لصفحة إضافة كتاب جديد
     private async void OnAddBookClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new AddBookPage());
     }
 
-    // Navigation vers la page des détails lorsqu’un livre est sélectionné
+    // الانتقال لصفحة التفاصيل عند الضغط على كتاب
     private async void OnBookSelected(object sender, EventArgs e)
     {
-        // Identifier l’élément (Frame) qui a été cliqué
-        var frame = sender as Frame;
+        // التعديل: نستخدم VisualElement ليكون الكود مرناً ويقبل أي عنصر (Layout أو Border)
+        var view = sender as VisualElement;
 
-        // Récupérer le livre associé à ce Frame
-        var book = frame?.BindingContext as Book;
+        // استخراج الكتاب المرتبط بالعنصر الذي تم الضغط عليه
+        var book = view?.BindingContext as Book;
 
         if (book != null)
         {
-            // Aller à la page de détails du livre sélectionné
+            // الانتقال لصفحة التفاصيل وتمرير بيانات الكتاب
             await Navigation.PushAsync(new BookDetailsPage(book));
         }
-    }
+    } 
 }

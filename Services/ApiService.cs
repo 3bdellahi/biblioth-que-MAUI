@@ -9,7 +9,7 @@ namespace project.Services;
 public class ApiService
 {
     private readonly HttpClient _httpClient;
-    
+
     private const string BaseUrl = "http://192.168.100.20:5000/api/";
 
     public ApiService()
@@ -44,7 +44,7 @@ public class ApiService
         }
         catch { return new List<Category>(); }
     }
-
+        
     public async Task<List<ReadingStatus>> GetStatusesAsync()
     {
         try

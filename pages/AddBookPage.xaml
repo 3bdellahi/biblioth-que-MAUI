@@ -8,52 +8,64 @@
     <ScrollView>
         <VerticalStackLayout Padding="25" Spacing="25">
 
-            <VerticalStackLayout Spacing="5">
+            <VerticalStackLayout Spacing="8">
                 <Label Text="Titre du livre :" 
-                       TextColor="Black" 
+                       TextColor="#333" 
                        FontAttributes="Bold" 
-                       FontSize="16" />
+                       FontSize="15" 
+                       Margin="5,0"/>
 
-                <Frame Padding="5,0" BorderColor="#2196F3" CornerRadius="5" HasShadow="False">
+                <Border Stroke="#2196F3"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="10,0"
+                        HeightRequest="55">
                     <Entry x:Name="TitleEntry"
                            Placeholder="Entrez le titre ici..."
-                           PlaceholderColor="Gray"
+                           PlaceholderColor="#999"
                            TextColor="Black"
-                           BackgroundColor="White"
-                           HeightRequest="50" />
-                </Frame>
+                           VerticalOptions="Center" />
+                </Border>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Spacing="5">
+            <VerticalStackLayout Spacing="8">
                 <Label Text="Catégorie du livre :" 
-                       TextColor="Black" 
+                       TextColor="#333" 
                        FontAttributes="Bold" 
-                       FontSize="16" />
+                       FontSize="15" 
+                       Margin="5,0"/>
 
-                <Frame Padding="5,0" BorderColor="#2196F3" CornerRadius="5" HasShadow="False">
+                <Border Stroke="#2196F3"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="10,0"
+                        HeightRequest="55">
                     <Entry x:Name="CategoryEntry"
                            Placeholder="Exemple : Programmation, Roman..."
-                           PlaceholderColor="Gray"
+                           PlaceholderColor="#999"
                            TextColor="Black"
-                           BackgroundColor="White"
-                           HeightRequest="50" />
-                </Frame>
+                           VerticalOptions="Center" />
+                </Border>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Spacing="5">
-                <Label Text="Statut de lecture actuel :" 
-                       TextColor="Black" 
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Statut de lecture :" 
+                       TextColor="#333" 
                        FontAttributes="Bold" 
-                       FontSize="16" />
+                       FontSize="15" 
+                       Margin="5,0"/>
 
-                <Frame Padding="5,0" BorderColor="#2196F3" CornerRadius="5" HasShadow="False">
+                <Border Stroke="#2196F3"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="10,0"
+                        HeightRequest="55">
                     <Entry x:Name="StatusEntry"
                            Text="En cours de lecture"
-                           PlaceholderColor="Gray"
+                           PlaceholderColor="#999"
                            TextColor="Black"
-                           BackgroundColor="White"
-                           HeightRequest="50" />
-                </Frame>
+                           VerticalOptions="Center" />
+                </Border>
             </VerticalStackLayout>
 
             <Button Text="Enregistrer le livre"
@@ -63,7 +75,12 @@
                     HeightRequest="60"
                     FontSize="18"
                     FontAttributes="Bold"
-                    CornerRadius="10" />
+                    CornerRadius="30"
+                    Margin="0,10,0,0">
+                <Button.Shadow>
+                    <Shadow Brush="#2196F3" Offset="0,4" Radius="10" Opacity="0.3" />
+                </Button.Shadow>
+            </Button>
 
         </VerticalStackLayout>
     </ScrollView>

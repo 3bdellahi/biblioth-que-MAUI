@@ -34,14 +34,12 @@
         <CollectionView x:Name="NotesCollection" Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,5"
-                           Padding="10"
-                           BackgroundColor="#F9F9F9"
-                           BorderColor="LightGray">
-                        <Label Text="{Binding Content}"
-                               FontSize="15"
-                               TextColor="Black" />
-                    </Frame>
+                    <Border Margin="0,5" Padding="10" BackgroundColor="#F9F9F9">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding Content}" FontSize="15" TextColor="Black" />
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

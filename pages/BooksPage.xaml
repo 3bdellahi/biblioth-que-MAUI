@@ -2,87 +2,98 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="project.Pages.BooksPage"
-             Title="Ma bibliothèque numérique"
-             BackgroundColor="White">
+             Title="Ma Bibliothèque"
+             BackgroundColor="#F8F9FA">
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20" RowSpacing="10">
 
-    <Grid RowDefinitions="*, Auto" Padding="15">
+        <Border Grid.Row="0"
+                StrokeShape="RoundRectangle 25"
+                StrokeThickness="0"
+                BackgroundColor="White"
+                HeightRequest="50"
+                Margin="0,0,0,10">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1" />
+            </Border.Shadow>
 
-        <CollectionView x:Name="BooksCollection" Grid.Row="0">
+            <SearchBar x:Name="bookSearchBar"
+                       Placeholder="Rechercher un livre..."
+                       PlaceholderColor="#9E9E9E"
+                       TextColor="#212121"
+                       FontSize="15"
+                       BackgroundColor="Transparent"
+                       CancelButtonColor="#2196F3"
+                       TextChanged="OnSearchTextChanged" />
+        </Border>
 
-            <!-- Vue affichée lorsqu’il n’y a aucun livre -->
-            <CollectionView.EmptyView>
-                <VerticalStackLayout HorizontalOptions="Center"
-                                     VerticalOptions="Center"
-                                     Spacing="10">
-                    <Label Text="📖"
-                           FontSize="50"
-                           HorizontalTextAlignment="Center" />
+        <CollectionView x:Name="BooksCollection" Grid.Row="1" Margin="10">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" 
+                         Span="2" 
+                         HorizontalItemSpacing="10" 
+                         VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
 
-                    <Label Text="Aucun livre ajouté pour le moment"
-                           TextColor="Gray"
-                           FontSize="18"
-                           HorizontalTextAlignment="Center" />
-
-                    <Label Text="Assurez-vous que le serveur est en cours d’exécution et ajoutez un livre"
-                           TextColor="Silver"
-                           FontSize="14"
-                           HorizontalTextAlignment="Center" />
-                </VerticalStackLayout>
-            </CollectionView.EmptyView>
-
-            <!-- Modèle d’affichage d’un livre -->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,5"
-                           Padding="15"
-                           HasShadow="True"
-                           BorderColor="#2196F3"
-                           BackgroundColor="White">
+                    <Border StrokeShape="RoundRectangle 15"
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    HeightRequest="220">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1" />
+                        </Border.Shadow>
 
-                        <!-- Clic sur un livre -->
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnBookSelected"
-                                                   CommandParameter="{Binding .}" />
-                        </Frame.GestureRecognizers>
+                        <Grid RowDefinitions="Auto, *">
+                            <Border Grid.Row="0" 
+                            HeightRequest="120" 
+                            StrokeShape="RoundRectangle 15,15,0,0"
+                            BackgroundColor="#F0F0F0">
+                                <Image Source="{Binding BookImage}" 
+                               Aspect="AspectFill"
+                               Margin="10"/>
+                            </Border>
 
-                        <VerticalStackLayout Spacing="5">
+                            <VerticalStackLayout Grid.Row="1" Padding="10" Spacing="5">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBookSelected" CommandParameter="{Binding .}" />
+                                </VerticalStackLayout.GestureRecognizers>
 
-                            <Label Text="{Binding Title}"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="#333" />
+                                <Label Text="{Binding Title}" 
+                               FontSize="16" 
+                               FontAttributes="Bold" 
+                               MaxLines="1" 
+                               LineBreakMode="TailTruncation"
+                               TextColor="#2C3E50"/>
 
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="{Binding CategoryName}"
-                                       TextColor="#2196F3"
-                                       FontSize="14" />
+                                <Label Text="{Binding CategoryName}" 
+                               FontSize="12" 
+                               TextColor="#2196F3"/>
 
-                                <Label Text="|"
-                                       TextColor="LightGray" />
-
-                                <Label Text="{Binding StatusName}"
-                                       TextColor="DarkGreen"
-                                       FontSize="14"
-                                       FontAttributes="Italic" />
-                            </HorizontalStackLayout>
-
-                        </VerticalStackLayout>
-                    </Frame>
+                                <Label Text="{Binding StatusName}" 
+                               FontSize="11" 
+                               TextColor="Gray"
+                               FontAttributes="Italic"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
         </CollectionView>
 
-        <!-- Bouton Ajouter un livre -->
-        <Button Grid.Row="1"
-                Text="➕ Ajouter un nouveau livre"
+        <Button Grid.Row="2"
+                Text="➕ Ajouter un Livre"
                 Clicked="OnAddBookClicked"
-                Margin="10"
                 BackgroundColor="#2196F3"
                 TextColor="White"
-                HeightRequest="60"
-                FontSize="18"
-                CornerRadius="30" />
-
+                FontAttributes="Bold"
+                HeightRequest="55"
+                CornerRadius="27"
+                FontSize="16"
+                Margin="0,10,0,5">
+            <Button.Shadow>
+                <Shadow Brush="#2196F3" Offset="0,4" Radius="10" Opacity="0.3" />
+            </Button.Shadow>
+        </Button>
     </Grid>
 </ContentPage>
